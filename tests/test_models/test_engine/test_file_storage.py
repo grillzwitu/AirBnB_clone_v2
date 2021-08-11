@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-""" Module for testing file storage"""
+"""
+Contains the TestFileStorageDocs classes
+"""
+
 from datetime import datetime
 import inspect
 import models

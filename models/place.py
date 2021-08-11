@@ -1,5 +1,5 @@
-#!/usr/bin/python3
-""" Place Module for HBNB project """
+#!/usr/bin/python
+""" holds class Place"""
 import models
 from models.base_model import BaseModel, Base
 from os import getenv
@@ -19,8 +19,8 @@ if models.storage_t == 'db':
                                  primary_key=True))
 
 
-class Place(BaseModel):
-    """ A place to stay """
+class Place(BaseModel, Base):
+    """Representation of Place """
     if models.storage_t == 'db':
         __tablename__ = 'places'
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)

@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-"""TestAmenityDocs classes """
+"""
+Contains the TestAmenityDocs classes
+"""
+
 from datetime import datetime
 import inspect
 import models

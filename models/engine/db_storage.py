@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """
-Storage engine using MySQL database
+Contains the class DBStorage
 """
+
 import models
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base

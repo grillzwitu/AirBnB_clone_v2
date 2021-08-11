@@ -1,16 +1,17 @@
 #!/usr/bin/python3
-""" Console Module """
+""" console """
+
 import cmd
-import sys
-from models.base_model import BaseModel
-from models.__init__ import storage
-from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
+from datetime import datetime
+import models
 from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
 from models.review import Review
-import shlex
+from models.state import State
+from models.user import User
+import shlex  # for splitting the line along spaces except in double quotes
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
