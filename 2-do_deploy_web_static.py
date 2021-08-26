@@ -11,24 +11,21 @@ env.hosts = ['35.231.195.110', '35.243.157.198']
 
 
 def do_deploy(archive_path):
-    """ distributes an archive to a web server """
-    if os.path.exists(archive_path) is False:
+    """distributes an archive to the web servers"""
+    if exists(archive_path) is False:
         return False
     try:
-        path_id = archive_path.split('/')
-        a = path_id[1].split('.')
-        put(archive_path, "/tmp")
-        run("mkdir -p /data/web_static/releases/{}".format(a[0]))
-        run("tar -xzf /tmp/{} -C\
-        /data/web_static/releases/{}".format(path_id[1], a[0]))
-        run("rm /tmp/{}".format(path_id[1]))
-        run("mv /data/web_static/releases/{}/web_static/*\
-        /data/web_static/releases/{}".format(a[0], a[0]))
-        run("rm -rf /data/web_static/releases/{}/web_static".format(a[0]))
-        run("rm -rf /data/web_static/current")
-        run("ln -s /data/web_static/releases/{}/\
-        /data/web_static/current".format(a[0]))
-        print("New version deployed!")
+        file_n = archive_path.split("/")[-1]
+        no_ext = file_n.split(".")[0]
+        path = "/data/web_static/releases/"
+        put(archive_path, '/tmp/')
+        run('mkdir -p {}{}/'.format(path, no_ext))
+        run('tar -xzf /tmp/{} -C {}{}/'.format(file_n, path, no_ext))
+        run('rm /tmp/{}'.format(file_n))
+        run('mv {0}{1}/web_static/* {0}{1}/'.format(path, no_ext))
+        run('rm -rf {}{}/web_static'.format(path, no_ext))
+        run('rm -rf /data/web_static/current')
+        run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
         return True
     except:
         return False
