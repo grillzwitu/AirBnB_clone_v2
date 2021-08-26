@@ -12,9 +12,9 @@ env.hosts = ['35.231.195.110', '35.243.157.198']
 
 def do_deploy(archive_path):
     """distributes an archive to your web servers"""
-    if not isfile(archive_path):
+    if not os.path.isfile(archive_path):
         return False
-    filename = basename(archive_path)
+    filename = os.path.basename(archive_path)
     try:
         no_ext = filename.split(".")[0]
         put(archive_path, "/tmp/")
