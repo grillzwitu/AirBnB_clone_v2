@@ -3,24 +3,11 @@
 Generates a .tgz archive from the contents
 of the web_static folder of the AirBnB Clone repo
 """
-import os.path
-from fabric.api import *
-from datetime import datetime
+from os.path import exists
+from fabric.api import put, run, env
+
 
 env.hosts = ['35.231.195.110', '35.243.157.198']
-
-
-def do_pack():
-    """ Function that makes packages"""
-    try:
-        now = datetime.now()
-        date_create = now.strftime("%Y%m%d%H%M%S")
-        local("mkdir -p versions")
-        do_tgz = "web_static_{}.tgz".format(date_create)
-        local("tar -cvzf versions/{} web_static".format(do_tgz))
-        return do_tgz
-    except:
-        return None
 
 
 def do_deploy(archive_path):
