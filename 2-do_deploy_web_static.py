@@ -3,7 +3,7 @@
 Generates a .tgz archive from the contents
 of the web_static folder of the AirBnB Clone repo
 """
-from os.path import exists 
+from os.path import exists
 from fabric.api import put, run, env
 
 
