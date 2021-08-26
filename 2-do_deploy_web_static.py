@@ -3,7 +3,7 @@
 Generates a .tgz archive from the contents
 of the web_static folder of the AirBnB Clone repo
 """
-import os.path 
+from os.path import exists 
 from fabric.api import put, run, env
 
 
@@ -11,21 +11,21 @@ env.hosts = ['35.231.195.110', '35.243.157.198']
 
 
 def do_deploy(archive_path):
-    """distributes an archive to your web servers"""
-    if not os.path.isfile(archive_path):
+    """distributes an archive to the web servers"""
+    if exists(archive_path) is False:
         return False
-    filename = os.path.basename(archive_path)
     try:
-        no_ext = filename.split(".")[0]
-        put(archive_path, "/tmp/")
-        extract_path = "/data/web_static/releases/{}".format(no_ext)
-        run("mkdir -p {}".format(extract_path))
-        run("tar xzf /tmp/{} -C {}".format(filename, extract_path))
-        run("rm /tmp/{}".format(filename))
-        run("mv {0}/web_static/* {0}/".format(extract_path))
-        run("rm -rf {0}/web_static/".format(extract_path))
-        run("rm -rf /data/web_static/current")
-        run("ln -s {} /data/web_static/current".format(extract_path))
+        file_n = archive_path.split("/")[-1]
+        no_ext = file_n.split(".")[0]
+        path = "/data/web_static/releases/"
+        put(archive_path, '/tmp/')
+        run('mkdir -p {}{}/'.format(path, no_ext))
+        run('tar -xzf /tmp/{} -C {}{}/'.format(file_n, path, no_ext))
+        run('rm /tmp/{}'.format(file_n))
+        run('mv {0}{1}/web_static/* {0}{1}/'.format(path, no_ext))
+        run('rm -rf {}{}/web_static'.format(path, no_ext))
+        run('rm -rf /data/web_static/current')
+        run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
         return True
     except:
         return False
